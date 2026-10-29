@@ -1,5 +1,10 @@
 # Tom’s Car Wash redesign
 
+## Website links
+
+- Private redesign (owner access): [Tom’s Car Wash redesign](https://toms-car-wash-royersford-studio.valli349022.chatgpt.site/)
+- Public website: [Tom’s Car Wash](https://www.tomscarwash.com/)
+
 ## Google Reviews update
 
 The site now has seven pages, including reviews.html. All 192 entries in the supplied Google Reviews text file are imported, with 98 written reviews and 98 owner responses. Search, supplied-order/A–Z sorting, content filters and 12-entry pagination run locally; without JavaScript all records remain readable. The homepage has a compact verified Google rating shortcut directly above the wash packages, plus a detailed Google rating summary with the first three supplied entries below.
