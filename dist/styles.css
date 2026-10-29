@@ -8,3 +8,38 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}.js-motion .reveal{opacity:1;transform:none}.hero-media{transform:none!important}}
 html[data-motion=off]{scroll-behavior:auto}html[data-motion=off] .reveal{opacity:1;transform:none}html[data-motion=off] *{transition:none!important;animation:none!important}
 @media print{.site-header,.topbar,footer,.mobile-call,.hero-media,.hero-bottom,.float-note,.motion-toggle{display:none}.hero,.subhero,.club,.facts{background:white;color:black}.hero{min-height:0}.hero .wrap{padding:20px 0}.hero:after{display:none}.section{padding:25px 0}.plans{grid-template-columns:repeat(2,1fr)}.plan{break-inside:avoid}.plan.featured{background:white;color:black}.wrap{width:95%}a{color:black}.reveal{opacity:1!important;transform:none!important}}
+
+
+/* Mobile wash package comparison: readable tabs, with a scrollable table as a no-JS fallback. */
+.mobile-wash-comparison{display:none}
+@media(max-width:760px){
+  .comparison{min-width:0;overflow-x:auto;margin-top:24px}
+  .comparison.mobile-ready{overflow:visible}
+  .comparison.mobile-ready>table{display:none}
+  .comparison.mobile-ready .mobile-wash-comparison{display:block;min-width:0}
+  .mobile-wash-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:14px}
+  .mobile-wash-tab{min-width:0;min-height:68px;padding:12px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:1px solid #cbdde1;border-radius:12px;background:#fff;color:var(--ink);text-align:center;line-height:1.2;box-shadow:0 3px 10px #091b290a}
+  .mobile-wash-tab.is-active{background:var(--cyan);border-color:var(--cyan);color:#061521;box-shadow:0 5px 14px #007ea122}
+  .mobile-wash-tab-name{font-size:14px;font-weight:700;overflow-wrap:anywhere}
+  .mobile-wash-tab-price{font-size:19px;font-weight:800}
+  .mobile-wash-card{min-width:0;border:1px solid #d8e6e8;border-radius:14px;background:#fff;overflow:hidden;box-shadow:0 4px 20px #091b2908}
+  .mobile-wash-card-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 16px;background:#e2f7fa}
+  .mobile-wash-card-heading h3{font-size:30px;line-height:1.08;min-width:0;overflow-wrap:anywhere}
+  .mobile-wash-card-heading strong{font:800 27px/1 'Barlow Condensed',sans-serif;white-space:nowrap}
+  .mobile-wash-features{list-style:none;margin:0;padding:0 14px}
+  .mobile-wash-feature{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0;padding:13px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.4}
+  .mobile-wash-feature:last-child{border:0}
+  .mobile-wash-feature-name{min-width:0;flex:1 1 auto;font-weight:600;overflow-wrap:anywhere}
+  .mobile-wash-feature-status{display:flex;flex:0 0 109px;align-items:center;justify-content:flex-start;gap:6px;font-size:11px;white-space:nowrap;color:#37515b}
+  .mobile-wash-feature-icon{display:inline-grid;place-items:center;flex:0 0 23px;width:23px;height:23px;border-radius:50%;font-size:15px;font-weight:800;line-height:1}
+  .mobile-wash-feature-status.is-included .mobile-wash-feature-icon{background:#009bb6;color:#fff}
+  .mobile-wash-feature-status.is-absent{color:#687781}
+  .mobile-wash-feature-status.is-absent .mobile-wash-feature-icon{background:#dbe2e6;color:#52606b}
+  .services:has(.comparison) h2{font-size:clamp(36px,9vw,46px);overflow-wrap:break-word}
+}
+@media(max-width:350px){
+  .mobile-wash-feature-status{flex-basis:94px;font-size:10px;gap:4px}
+  .mobile-wash-features{padding:0 10px}
+  .mobile-wash-feature{font-size:12px}
+  .mobile-wash-card-heading h3{font-size:27px}
+}
