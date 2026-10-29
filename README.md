@@ -4,6 +4,7 @@
 
 - Private redesign (owner access): [Tom’s Car Wash redesign](https://toms-car-wash-royersford-studio.valli349022.chatgpt.site/)
 - Public website: [Tom’s Car Wash](https://www.tomscarwash.com/)
+- Public GitHub repository (source and static site files): [toms-carwash-redesigned-website](https://github.com/sysopx786/toms-carwash-redesigned-website)
 
 ## Google Reviews update
 
