@@ -43,3 +43,74 @@ html[data-motion=off]{scroll-behavior:auto}html[data-motion=off] .reveal{opacity
   .mobile-wash-feature{font-size:12px}
   .mobile-wash-card-heading h3{font-size:27px}
 }
+
+
+/* Mobile hero: show the entire BMW instead of cropping the wide artwork
+   into a tall background. Desktop hero stays unchanged. */
+@media screen and (max-width:760px){
+  .hero{
+    display:flex;
+    flex-direction:column;
+    min-height:0;
+    overflow:hidden;
+    background:#061521;
+  }
+  .hero > .wrap{
+    order:0;
+    padding-top:44px;
+    padding-bottom:20px;
+  }
+  .hero h1{
+    max-width:100%;
+    font-size:clamp(49px,12.5vw,70px);
+  }
+  .hero-actions{
+    flex-wrap:wrap;
+  }
+  .hero .float-note{
+    position:relative;
+    bottom:auto;
+    right:auto;
+    width:max-content;
+    max-width:100%;
+    margin-top:24px;
+    padding:11px 16px;
+    box-shadow:none;
+  }
+  .hero .float-note b{font-size:31px}
+  .hero-media{
+    order:1;
+    position:relative;
+    inset:auto;
+    z-index:0;
+    display:block;
+    flex:none;
+    width:100%;
+    height:auto;
+    aspect-ratio:1672 / 941;
+    overflow:hidden;
+    transform:none!important;
+    will-change:auto;
+  }
+  .hero-media img,
+  .hero-media video{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    object-position:center center;
+  }
+  .hero:after{display:none}
+  .hero-bottom{
+    order:2;
+    position:relative;
+    inset:auto;
+    display:block;
+    width:100%;
+    padding:14px 0 24px;
+    background:#061521;
+  }
+  .hero-bottom .wrap{padding:0;align-items:center}
+  .hero-caption{padding-bottom:0}
+  .hero .progress-line{display:none}
+}
