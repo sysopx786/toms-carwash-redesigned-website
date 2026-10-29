@@ -1,4 +1,3 @@
-Warning: fs was declared with const; use let for reassignable variables.
 # Tom’s Car Wash redesign
 
 ## Google Reviews update
