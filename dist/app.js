@@ -44,4 +44,84 @@
   if(hero)window.addEventListener('scroll',()=>{if(!scheduled){scheduled=true;requestAnimationFrame(scrub);}},{passive:true});
   const compare = document.querySelector('#compare-toggle');
   compare?.addEventListener('click', () => {const table=document.querySelector('#comparison');const open=table.hidden;table.hidden=!open;compare.setAttribute('aria-expanded',String(open));compare.textContent=open?'Hide full comparison −':'Compare every feature +';});
+
+  // Mobile comparison reads the published table, keeping the prices and feature data in one place.
+  const comparison=document.querySelector('#comparison');
+  const sourceTable=comparison?.querySelector('table');
+  if(sourceTable?.tHead?.rows.length && sourceTable?.tBodies[0]){
+    const packages=Array.from(sourceTable.tHead.rows[0].cells).slice(1).map(cell=>{
+      const parts=cell.textContent.trim().split('·');
+      return {name:parts[0].trim(),price:parts.slice(1).join('·').trim()};
+    });
+    const features=Array.from(sourceTable.tBodies[0].rows).map(row=>({
+      label:row.cells[0].textContent.trim(),
+      included:Array.from(row.cells).slice(1).map(cell=>cell.textContent.trim()==='Included')
+    }));
+    if(packages.length && features.length){
+      const el=(tag,cls,text)=>{
+        const node=document.createElement(tag);
+        if(cls)node.className=cls;
+        if(text!==undefined)node.textContent=text;
+        return node;
+      };
+      const mobile=el('div','mobile-wash-comparison');
+      const tabs=el('div','mobile-wash-tabs');
+      tabs.setAttribute('role','tablist');
+      tabs.setAttribute('aria-label','Select a wash package');
+      const panel=el('section','mobile-wash-card');
+      panel.id='mobile-wash-panel';
+      panel.setAttribute('role','tabpanel');
+      panel.tabIndex=0;
+      function showWash(index){
+        buttons.forEach((button,i)=>{
+          const active=index===i;
+          button.classList.toggle('is-active',active);
+          button.setAttribute('aria-selected',String(active));
+          button.tabIndex=active?0:-1;
+        });
+        panel.setAttribute('aria-labelledby',buttons[index].id);
+        const head=el('div','mobile-wash-card-heading');
+        head.append(el('h3','',packages[index].name+' Wash'),el('strong','',packages[index].price));
+        const list=el('ul','mobile-wash-features');
+        features.forEach(feature=>{
+          const included=feature.included[index];
+          const row=el('li','mobile-wash-feature');
+          const status=el('span','mobile-wash-feature-status '+(included?'is-included':'is-absent'));
+          const icon=el('span','mobile-wash-feature-icon',included?'✓':'−');
+          icon.setAttribute('aria-hidden','true');
+          status.append(icon,el('span','',included?'Included':'Not included'));
+          row.append(el('span','mobile-wash-feature-name',feature.label),status);
+          list.append(row);
+        });
+        panel.replaceChildren(head,list);
+      }
+      const buttons=packages.map((pkg,index)=>{
+        const button=el('button','mobile-wash-tab');
+        button.type='button';
+        button.id='mobile-wash-tab-'+index;
+        button.setAttribute('role','tab');
+        button.setAttribute('aria-controls',panel.id);
+        button.append(el('span','mobile-wash-tab-name',pkg.name),el('strong','mobile-wash-tab-price',pkg.price));
+        button.addEventListener('click',()=>showWash(index));
+        button.addEventListener('keydown',event=>{
+          let next=index;
+          if(event.key==='ArrowRight')next=(index+1)%packages.length;
+          else if(event.key==='ArrowLeft')next=(index+packages.length-1)%packages.length;
+          else if(event.key==='Home')next=0;
+          else if(event.key==='End')next=packages.length-1;
+          else return;
+          event.preventDefault();
+          showWash(next);
+          buttons[next].focus();
+        });
+        tabs.append(button);
+        return button;
+      });
+      mobile.append(tabs,panel);
+      comparison.insertBefore(mobile,sourceTable);
+      showWash(0);
+      comparison.classList.add('mobile-ready');
+    }
+  }
+
 })();
